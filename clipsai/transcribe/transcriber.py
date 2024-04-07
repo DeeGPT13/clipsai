@@ -69,10 +69,18 @@ class Transcriber:
         self._precision = precision
         self._device = device
         self._model_size = model_size
+
+        options = {
+            "max_new_tokens": None,
+            "clip_timestamps": None,
+            "hallucination_silence_threshold": None,
+        }
+        
         self._model = whisperx.load_model(
             whisper_arch=self._model_size,
             device=self._device,
             compute_type=self._precision,
+            asr_options=options
         )
 
     def transcribe(
